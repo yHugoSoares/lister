@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White */
+    --foreground: 20 14.3% 4.1%; /* Dark Charcoal */
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+
+    --primary: 24 70% 40%; /* Copper */
+    --primary-foreground: 0 0% 98%; /* Off-white */
+
+    --secondary: 30 30% 60%; /* Bronze */
+    --secondary-foreground: 20 14.3% 4.1%;
+
+    --muted: 20 14.3% 95%; /* Light Gray-Brown */
+    --muted-foreground: 20 14.3% 40%;
+
+    --accent: 30 40% 70%; /* Lighter Bronze */
+    --accent-foreground: 20 14.3% 4.1%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 20 14.3% 90%; /* Light Gray-Brown Border */
+    --input: 20 14.3% 90%;
+    --ring: 24 70% 40%; /* Copper Ring */
+
+    --radius: 0.75rem; /* Slightly more rounded */
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%; /* Dark Charcoal */
+    --foreground: 0 0% 98%; /* Off-white */
+
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 24 70% 60%; /* Brighter Copper */
+    --primary-foreground: 20 14.3% 4.1%;
+
+    --secondary: 30 30% 40%; /* Darker Bronze */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 20 14.3% 20%; /* Darker Gray-Brown */
+    --muted-foreground: 20 14.3% 60%;
+
+    --accent: 30 40% 30%; /* Darker Accent Bronze */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 20 14.3% 20%; /* Darker Gray-Brown Border */
+    --input: 20 14.3% 20%;
+    --ring: 24 70% 60%; /* Brighter Copper Ring */
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
