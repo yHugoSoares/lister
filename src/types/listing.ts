@@ -7,5 +7,5 @@ export interface Listing {
   beds: number;
   baths: number;
   sqft: number;
-  created_at?: string; // Supabase will add this automatically
+  created_at?: string;
 }

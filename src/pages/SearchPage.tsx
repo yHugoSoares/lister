@@ -63,7 +63,18 @@ const SearchPage = () => {
           {t('search_subtitle')}
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          {/* Map Area */}
+          <div className="lg:col-span-4">
+            <div className="bg-card rounded-xl shadow-lg border border-border overflow-hidden h-[calc(100vh-16rem)]">
+              <div className="p-4 border-b border-border">
+                <h2 className="text-xl font-bold">{t('search_select_area')}</h2>
+                <p className="text-sm text-muted-foreground">{t('search_select_area_desc')}</p>
+              </div>
+              <MapAreaSelector onAreaSelected={setSelectedArea} />
+            </div>
+          </div>
+
           {/* Filters Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-card rounded-xl p-6 shadow-lg border border-border">
@@ -148,17 +159,6 @@ const SearchPage = () => {
                 <Search className="mr-2 h-5 w-5" />
                 {t('search_button')}
               </Button>
-            </div>
-          </div>
-
-          {/* Map Area */}
-          <div className="lg:col-span-2">
-            <div className="bg-card rounded-xl shadow-lg border border-border overflow-hidden">
-              <div className="p-4 border-b border-border">
-                <h2 className="text-xl font-bold">{t('search_select_area')}</h2>
-                <p className="text-sm text-muted-foreground">{t('search_select_area_desc')}</p>
-              </div>
-              <MapAreaSelector onAreaSelected={setSelectedArea} />
             </div>
           </div>
         </div>

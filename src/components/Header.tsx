@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Home, LogOut, User, Search, PlusCircle, Newspaper, Settings, Heart, FileText } from "lucide-react";
+import { Home, LogOut, User, Search, PlusCircle, Newspaper, Settings, Heart, FileText, Bell, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ModeToggle } from "@/components/ModeToggle";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import NotificationsPanel from "@/components/NotificationsPanel";
+import FavoritesPanel from "@/components/FavoritesPanel";
+import ChatPanel from "@/components/ChatPanel";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -25,6 +29,9 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeMode, setActiveMode] = useState<"buyer" | "seller">("buyer");
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -36,8 +43,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     onLoginClick(mode);
   };
 
-  const isListingsPage = location.pathname === "/listings";
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
@@ -46,58 +51,103 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
           <span className="font-bold text-lg text-foreground">Lister</span>
         </Link>
         <nav className="flex items-center space-x-1 md:space-x-2">
-          {!isAuthenticated ? (
-            <>
-              <div className="relative flex items-center bg-gray-400 dark:bg-gray-800 rounded-full p-1">
-                {/* Sliding background */}
-                <div 
-                  className={`absolute top-1 bottom-1 rounded-full bg-primary transition-all duration-300 ease-in-out ${
-                    activeMode === "buyer" ? "left-1 right-[50%]" : "left-[50%] right-1"
-                  }`}
-                />
-                <Button 
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleToggle("buyer")} 
-                  className={`relative z-10 text-sm font-medium flex items-center gap-2 rounded-full transition-colors ${
-                    activeMode === "buyer" ? "text-primary-foreground hover:text-primary-foreground" : "text-foreground hover:bg-transparent"
-                  }`}
-                >
-                  <Search className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav_buy')}</span>
-                </Button>
-                <Button 
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleToggle("seller")} 
-                  className={`relative z-10 text-sm font-medium flex items-center gap-2 rounded-full transition-colors ${
-                    activeMode === "seller" ? "text-primary-foreground hover:text-primary-foreground" : "text-foreground hover:bg-transparent"
-                  }`}
-                >
-                  <PlusCircle className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav_sell')}</span>
-                </Button>
-              </div>
-            </>
-          ) : (
-            !isListingsPage && (
-              <Link to="/listings">
-                <Button variant="ghost" className="text-sm font-medium flex items-center gap-2">
-                  <Search className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav_listings')}</span>
-                </Button>
-              </Link>
-            )
-          )}
+          {/* News */}
           <Link to="/news">
             <Button variant="ghost" className="text-sm font-medium flex items-center gap-2">
               <Newspaper className="h-4 w-4" />
               <span className="hidden sm:inline">{t('nav_news')}</span>
             </Button>
           </Link>
+          
           <div className="flex items-center space-x-1 ml-2">
+            {/* Language Toggle */}
             <LanguageToggle />
+            
+            {/* Theme Toggle */}
             <ModeToggle />
+            
+            {isAuthenticated && (
+              <>
+                {/* Notifications Button */}
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-md relative"
+                  onClick={() => setIsNotificationsOpen(true)}
+                >
+                  <Bell className="h-[1.2rem] w-[1.2rem]" />
+                  <Badge 
+                    variant="destructive" 
+                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                  >
+                    3
+                  </Badge>
+                  <span className="sr-only">Notifications</span>
+                </Button>
+
+                {/* Favorites Button */}
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-md relative"
+                  onClick={() => setIsFavoritesOpen(true)}
+                >
+                  <Heart className="h-[1.2rem] w-[1.2rem]" />
+                  <span className="sr-only">Favorites</span>
+                </Button>
+
+                {/* Chat Button */}
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-md relative"
+                  onClick={() => setIsChatOpen(true)}
+                >
+                  <MessageCircle className="h-[1.2rem] w-[1.2rem]" />
+                  <Badge 
+                    variant="destructive" 
+                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                  >
+                    2
+                  </Badge>
+                  <span className="sr-only">Messages</span>
+                </Button>
+              </>
+            )}
+            
+            {/* Buy/Sell Toggle */}
+            <div className="relative flex items-center bg-gray-400 dark:bg-gray-800 rounded-full p-1 ml-1">
+              {/* Sliding background */}
+              <div 
+                className={`absolute top-1 bottom-1 rounded-full bg-primary transition-all duration-300 ease-in-out ${
+                  activeMode === "buyer" ? "left-1 right-[50%]" : "left-[50%] right-1"
+                }`}
+              />
+              <Button 
+                variant="ghost"
+                size="sm"
+                onClick={() => handleToggle("buyer")} 
+                className={`relative z-10 text-sm font-medium flex items-center gap-2 rounded-full transition-colors ${
+                  activeMode === "buyer" ? "text-primary-foreground hover:text-primary-foreground" : "text-foreground hover:bg-transparent"
+                }`}
+              >
+                <Search className="h-4 w-4" />
+                <span className="hidden sm:inline">{t('nav_buy')}</span>
+              </Button>
+              <Button 
+                variant="ghost"
+                size="sm"
+                onClick={() => handleToggle("seller")} 
+                className={`relative z-10 text-sm font-medium flex items-center gap-2 rounded-full transition-colors ${
+                  activeMode === "seller" ? "text-primary-foreground hover:text-primary-foreground" : "text-foreground hover:bg-transparent"
+                }`}
+              >
+                <PlusCircle className="h-4 w-4" />
+                <span className="hidden sm:inline">{t('nav_sell')}</span>
+              </Button>
+            </div>
+            
+            {/* Profile Dropdown */}
             {isAuthenticated && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -145,6 +195,11 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
           </div>
         </nav>
       </div>
+
+      {/* Panel Components */}
+      <NotificationsPanel isOpen={isNotificationsOpen} onOpenChange={setIsNotificationsOpen} />
+      <FavoritesPanel isOpen={isFavoritesOpen} onOpenChange={setIsFavoritesOpen} />
+      <ChatPanel isOpen={isChatOpen} onOpenChange={setIsChatOpen} />
     </header>
   );
 };
