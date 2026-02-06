@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useNavigate } from "react-router-dom";
 
 interface HeroSectionProps {
   onLoginClick: (role: "buyer" | "seller") => void;
@@ -8,6 +9,11 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onLoginClick }) => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleBuyClick = () => {
+    navigate("/search");
+  };
 
   return (
     <section className="relative w-full pt-32 pb-48 md:pt-48 md:pb-64 lg:pt-64 lg:pb-80 flex flex-col items-center justify-center text-center overflow-hidden bg-background">
@@ -38,7 +44,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onLoginClick }) => {
             <Button 
               size="lg" 
               className="rounded-xl px-10 py-8 text-xl shadow-xl hover:shadow-2xl transition-all duration-300 h-auto bg-primary hover:bg-primary/90 text-primary-foreground border-none" 
-              onClick={() => onLoginClick("buyer")}
+              onClick={handleBuyClick}
             >
               {t('hero_buy_btn')}
             </Button>
@@ -57,7 +63,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onLoginClick }) => {
       {/* Decorative elements */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-secondary/10 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-1/4 left-1/2 w-64 h-64 bg-accent/10 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
       </div>
+
       <style jsx>{`
         @keyframes blob {
           0% { transform: translate(0px, 0px) scale(1); }

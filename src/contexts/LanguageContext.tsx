@@ -54,7 +54,22 @@ const translations: Record<Language, Record<string, string>> = {
     listings_subtitle: "Explore our hand-picked selection of properties, from cozy apartments to spacious family homes. Find the perfect place that fits your lifestyle.",
     listings_not_found: "Can't find what you're looking for?",
     listings_contact: "Contact us",
-    listings_contact_suffix: "for personalized assistance!"
+    listings_contact_suffix: "for personalized assistance!",
+    search_title: "Search Properties",
+    search_subtitle: "Select an area on the map and apply filters to find your perfect property",
+    search_filters: "Filters",
+    search_price_range: "Price Range",
+    search_bedrooms: "Bedrooms",
+    search_bathrooms: "Bathrooms",
+    search_property_type: "Property Type",
+    search_any: "Any",
+    search_house: "House",
+    search_apartment: "Apartment",
+    search_condo: "Condo",
+    search_townhouse: "Townhouse",
+    search_button: "Search Properties",
+    search_select_area: "Select Search Area",
+    search_select_area_desc: "Draw a rectangle on the map to define your search area"
   },
   pt: {
     nav_listings: "Anúncios",
@@ -101,7 +116,22 @@ const translations: Record<Language, Record<string, string>> = {
     listings_subtitle: "Explore nossa seleção escolhida a dedo de propriedades, de apartamentos aconchegantes a casas de família espaçosas. Encontre o lugar perfeito que se adapta ao seu estilo de vida.",
     listings_not_found: "Não consegue encontrar o que procura?",
     listings_contact: "Entre em contato",
-    listings_contact_suffix: "para assistência personalizada!"
+    listings_contact_suffix: "para assistência personalizada!",
+    search_title: "Procurar Propriedades",
+    search_subtitle: "Selecione uma área no mapa e aplique filtros para encontrar a propriedade perfeita",
+    search_filters: "Filtros",
+    search_price_range: "Faixa de Preço",
+    search_bedrooms: "Quartos",
+    search_bathrooms: "Casas de Banho",
+    search_property_type: "Tipo de Propriedade",
+    search_any: "Qualquer",
+    search_house: "Casa",
+    search_apartment: "Apartamento",
+    search_condo: "Condomínio",
+    search_townhouse: "Moradia",
+    search_button: "Procurar Propriedades",
+    search_select_area: "Selecionar Área de Pesquisa",
+    search_select_area_desc: "Desenhe um retângulo no mapa para definir a sua área de pesquisa"
   }
 };
 

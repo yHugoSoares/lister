@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Home, LogOut, User, Search, PlusCircle, Newspaper, Settings, Heart, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,10 +24,16 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [activeMode, setActiveMode] = useState<"buyer" | "seller">("buyer");
 
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handleToggle = (mode: "buyer" | "seller") => {
+    setActiveMode(mode);
+    onLoginClick(mode);
   };
 
   const isListingsPage = location.pathname === "/listings";
@@ -42,14 +48,36 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
         <nav className="flex items-center space-x-1 md:space-x-2">
           {!isAuthenticated ? (
             <>
-              <Button variant="ghost" onClick={() => onLoginClick("buyer")} className="text-sm font-medium flex items-center gap-2">
-                <Search className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav_buy')}</span>
-              </Button>
-              <Button variant="ghost" onClick={() => onLoginClick("seller")} className="text-sm font-medium flex items-center gap-2">
-                <PlusCircle className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav_sell')}</span>
-              </Button>
+              <div className="relative flex items-center bg-gray-400 dark:bg-gray-800 rounded-full p-1">
+                {/* Sliding background */}
+                <div 
+                  className={`absolute top-1 bottom-1 rounded-full bg-primary transition-all duration-300 ease-in-out ${
+                    activeMode === "buyer" ? "left-1 right-[50%]" : "left-[50%] right-1"
+                  }`}
+                />
+                <Button 
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleToggle("buyer")} 
+                  className={`relative z-10 text-sm font-medium flex items-center gap-2 rounded-full transition-colors ${
+                    activeMode === "buyer" ? "text-primary-foreground hover:text-primary-foreground" : "text-foreground hover:bg-transparent"
+                  }`}
+                >
+                  <Search className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav_buy')}</span>
+                </Button>
+                <Button 
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleToggle("seller")} 
+                  className={`relative z-10 text-sm font-medium flex items-center gap-2 rounded-full transition-colors ${
+                    activeMode === "seller" ? "text-primary-foreground hover:text-primary-foreground" : "text-foreground hover:bg-transparent"
+                  }`}
+                >
+                  <PlusCircle className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav_sell')}</span>
+                </Button>
+              </div>
             </>
           ) : (
             !isListingsPage && (
