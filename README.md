@@ -6,5 +6,6 @@ How to use:
 ```bash
 docker compose build
 docker compose up -d
+docker compose -f docker-compose.dev.yml up
 ```
 open localhost:3000
