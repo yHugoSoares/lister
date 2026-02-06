@@ -89,10 +89,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
               </Link>
             )
           )}
-          <Button variant="ghost" className="text-sm font-medium flex items-center gap-2">
-            <Newspaper className="h-4 w-4" />
-            <span className="hidden sm:inline">{t('nav_news')}</span>
-          </Button>
+          <Link to="/news">
+            <Button variant="ghost" className="text-sm font-medium flex items-center gap-2">
+              <Newspaper className="h-4 w-4" />
+              <span className="hidden sm:inline">{t('nav_news')}</span>
+            </Button>
+          </Link>
           <div className="flex items-center space-x-1 ml-2">
             <LanguageToggle />
             <ModeToggle />
