@@ -1,12 +1,68 @@
 version: '3.8'
 
 services:
-  lister:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lister-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: lister_db
+      POSTGRES_USER: hugo
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change_me_in_production}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - lister-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hugo -d lister_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: lister-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=lister_db
+      - DB_USER=hugo
+      - DB_PASSWORD=${DB_PASSWORD:-change_me_in_production}
+      - JWT_SECRET=${JWT_SECRET:-generate-a-secure-secret}
+      - CORS_ORIGIN=http://localhost:8080
+    networks:
+      - lister-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: lister-frontend
+    restart: unless-stopped
     ports:
-      - "3000:8080"
+      - "8080:8080"
     environment:
       - NODE_ENV=production
-    restart: unless-stopped
+      - VITE_API_URL=http://localhost:3001/api
+    networks:
+      - lister-network
+    depends_on:
+      - backend
+
+networks:
+  lister-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

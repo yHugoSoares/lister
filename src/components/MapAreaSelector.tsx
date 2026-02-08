@@ -29,7 +29,7 @@ function MapClickHandler({ isDrawing, onMapClick }: { isDrawing: boolean; onMapC
 }
 
 const MapAreaSelector: React.FC<MapAreaSelectorProps> = ({ onAreaSelected }) => {
-  const [mapCenter] = useState<[number, number]>([38.7223, -9.1393]); // Lisbon, Portugal
+  const [mapCenter] = useState<[number, number]>([39.5, -8.0]); // Portugal center
   const [isDrawing, setIsDrawing] = useState(false);
   const [points, setPoints] = useState<[number, number][]>([]);
   const [polygon, setPolygon] = useState<[number, number][] | null>(null);
@@ -91,7 +91,7 @@ const MapAreaSelector: React.FC<MapAreaSelectorProps> = ({ onAreaSelected }) => 
     <div className="relative">
       <MapContainer
         center={mapCenter}
-        zoom={12}
+        zoom={7}
         style={{ height: "600px", width: "100%", cursor: isDrawing ? "crosshair" : "grab" }}
         className="z-0"
       >

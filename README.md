@@ -8,4 +8,4 @@ docker compose build
 docker compose up -d
 docker compose -f docker-compose.dev.yml up
 ```
-open localhost:3000
+open in browser: localhost:3000

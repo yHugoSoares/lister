@@ -45,7 +45,7 @@ const Index = () => {
         <HeroSection onLoginClick={handleLoginClick} />
         
         {/* Featured Properties Section */}
-        <section className="container py-20 px-4 md:px-6">
+        <section className="container py-12 px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               {t('featured_title')}
@@ -56,9 +56,9 @@ const Index = () => {
           </div>
 
           {isLoadingListings ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <Skeleton key={index} className="h-[400px] w-full rounded-2xl" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton key={index} className="aspect-square w-full rounded-xl" />
               ))}
             </div>
           ) : listingsError ? (
@@ -66,7 +66,7 @@ const Index = () => {
               <p className="text-destructive text-lg">Error loading featured properties.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {featuredListings?.map((listing) => (
                 <ListingCard key={listing.id} {...listing} />
               ))}
@@ -75,7 +75,7 @@ const Index = () => {
         </section>
 
         {/* Featured Agents Section */}
-        <section className="container py-20 px-4 md:px-6 bg-muted/30 rounded-[3rem] mb-20">
+        <section className="container py-12 px-4 md:px-6 bg-muted/30 rounded-[3rem] mb-12">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               {t('agents_title')}

@@ -16,7 +16,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onLoginClick }) => {
   };
 
   return (
-    <section className="relative w-full pt-32 pb-48 md:pt-48 md:pb-64 lg:pt-64 lg:pb-80 flex flex-col items-center justify-center text-center overflow-hidden bg-background">
+    <section className="relative w-full pt-24 pb-32 md:pt-32 md:pb-40 lg:pt-40 lg:pb-48 flex flex-col items-center justify-center text-center overflow-hidden bg-background">
       {/* Background Image - Top Half */}
       <div 
         className="absolute top-0 left-0 right-0 h-[65%] z-0"
